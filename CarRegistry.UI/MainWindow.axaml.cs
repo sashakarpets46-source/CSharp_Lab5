@@ -4,6 +4,7 @@ using Avalonia.Interactivity;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarRegistry.UI;
@@ -87,11 +88,11 @@ public partial class MainWindow : Window
     }
 
     // Сортування за пробігом
-private void SortButton_Click(object? sender, RoutedEventArgs e)
-{
-    _catalog.SortByMileage();
-    StatusText.Text = "Автомобілі відсортовано за пробігом.";
-}
+    private void SortButton_Click(object? sender, RoutedEventArgs e)
+    {
+        _catalog.SortByMileage();
+        StatusText.Text = "Автомобілі відсортовано за пробігом.";
+    }
 
     // Фільтрація за роком
     private void FilterButton_Click(object? sender, RoutedEventArgs e)
@@ -110,7 +111,65 @@ private void SortButton_Click(object? sender, RoutedEventArgs e)
     private void ResetButton_Click(object? sender, RoutedEventArgs e)
     {
         _catalog.ResetFilter();
+        SearchTextBox.Text = "";
         StatusText.Text = "Фільтр скинуто.";
+    }
+
+    // Пошук автомобілів за маркою або прізвищем власника
+    private void SearchButton_Click(object? sender, RoutedEventArgs e)
+    {
+        string searchTerm = SearchTextBox.Text ?? "";
+
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            _catalog.ResetFilter();
+            StatusText.Text = "Пошук порожній. Показано всі автомобілі.";
+        }
+        else
+        {
+            _catalog.SearchCars(searchTerm);
+            StatusText.Text = $"Результати пошуку: {_catalog.Cars.Count}.";
+        }
+    }
+
+    // Відображення унікальних власників
+    private void UniqueOwnersButton_Click(object? sender, RoutedEventArgs e)
+    {
+        var owners = _catalog.GetUniqueOwners();
+
+        StatusText.Text = owners.Count > 0
+            ? "Унікальні власники: " + string.Join(", ", owners)
+            : "Список власників порожній.";
+    }
+
+    // Відображення трьох найновіших автомобілів
+    private void NewestCarsButton_Click(object? sender, RoutedEventArgs e)
+    {
+        _catalog.FindThreeNewestCars();
+
+        StatusText.Text = $"Показано найновіші автомобілі: {_catalog.Cars.Count}.";
+    }
+
+    // Розрахунок середнього року придбання
+    private void AverageYearButton_Click(object? sender, RoutedEventArgs e)
+    {
+        double averageYear = _catalog.CalculateAveragePurchaseYear();
+
+        if (_catalog.Cars.Count == 0)
+        {
+            StatusText.Text = "Немає автомобілів для розрахунку.";
+            return;
+        }
+
+        StatusText.Text = $"Середній рік придбання: {averageYear:F2}.";
+    }
+
+    // Групування автомобілів за роком придбання
+    private void GroupByYearButton_Click(object? sender, RoutedEventArgs e)
+    {
+        _catalog.GroupCarsByYear();
+
+        StatusText.Text = "Автомобілі згруповано за роком придбання.";
     }
 
     // Збереження

@@ -1,4 +1,3 @@
-
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -115,9 +114,55 @@
 
         </ListBox>
 
-        <!-- Панель керування автомобілями -->
+        <!-- Панель керування -->
         <StackPanel Grid.Row="2" Spacing="8">
 
+            <!-- Панель LINQ-запитів -->
+            <Border Background="#219A7A"
+                    Padding="8">
+
+                <WrapPanel HorizontalAlignment="Center">
+
+                    <TextBlock Text="Пошук:"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               Foreground="White"/>
+
+                    <TextBox x:Name="SearchTextBox"
+                             Width="150"
+                             Margin="5"
+                             PlaceholderText="Марка або власник"/>
+
+                    <Button Content="Пошук"
+                            Click="SearchButton_Click"
+                            Margin="5"
+                            Background="#FFD7FAB2"/>
+
+                    <Button Content="Унікальні власники"
+                            Click="UniqueOwnersButton_Click"
+                            Margin="5"
+                            Background="#FFD7FAB2"/>
+
+                    <Button Content="Найновіші авто"
+                            Click="NewestCarsButton_Click"
+                            Margin="5"
+                            Background="#FFD7FAB2"/>
+
+                    <Button Content="Середній рік"
+                            Click="AverageYearButton_Click"
+                            Margin="5"
+                            Background="#FFD7FAB2"/>
+
+                    <Button Content="Групування за роком"
+                            Click="GroupByYearButton_Click"
+                            Margin="5"
+                            Background="#FFD7FAB2"/>
+
+                </WrapPanel>
+
+            </Border>
+
+            <!-- Панель фільтрації та керування -->
             <WrapPanel HorizontalAlignment="Right">
 
                 <TextBlock Text="Фільтрувати до року:"

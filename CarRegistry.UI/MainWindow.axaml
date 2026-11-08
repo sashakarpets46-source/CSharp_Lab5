@@ -1,0 +1,168 @@
+
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:CompileBindings="False"
+        d:DesignWidth="950"
+        d:DesignHeight="650"
+        x:Class="CarRegistry.UI.MainWindow"
+        Title="Автомобільна відомість"
+        Width="950"
+        Height="650"
+        MinWidth="750"
+        MinHeight="550">
+
+    <Grid Margin="15" RowDefinitions="Auto,*,Auto">
+
+        <!-- Блок додавання автомобіля -->
+        <StackPanel Grid.Row="0" Spacing="10">
+
+            <TextBlock Text="Додавання автомобіля"
+                       FontSize="18"
+                       FontWeight="Bold"/>
+
+            <Grid ColumnDefinitions="*,*"
+                  RowDefinitions="Auto,Auto"
+                  ColumnSpacing="15"
+                  RowSpacing="10">
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Spacing="4">
+                    <TextBlock Text="Марка автомобіля"/>
+                    <TextBox x:Name="BrandTextBox"
+                             PlaceholderText="Наприклад, BMW"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Spacing="4">
+                    <TextBlock Text="Прізвище власника"/>
+                    <TextBox x:Name="OwnerTextBox"
+                             PlaceholderText="Наприклад, Shevchenko"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Grid.Column="0" Spacing="4">
+                    <TextBlock Text="Рік придбання"/>
+                    <TextBox x:Name="YearTextBox"
+                             PlaceholderText="Наприклад, 2020"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Grid.Column="1" Spacing="4">
+                    <TextBlock Text="Пробіг (км)"/>
+                    <TextBox x:Name="MileageTextBox"
+                             PlaceholderText="Наприклад, 50000"/>
+                </StackPanel>
+
+            </Grid>
+
+            <Button Content="Додати автомобіль"
+                    HorizontalAlignment="Stretch"
+                    Click="AddButton_Click"/>
+
+            <TextBlock Text="Список автомобілів"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Margin="0,8,0,0"/>
+
+            <!-- Заголовки таблиці -->
+            <Border Background="#E5E5E5" Padding="8">
+                <Grid ColumnDefinitions="*,*,100,120">
+                    <TextBlock Text="Марка"
+                               Grid.Column="0"
+                               FontWeight="Bold"/>
+
+                    <TextBlock Text="Власник"
+                               Grid.Column="1"
+                               FontWeight="Bold"/>
+
+                    <TextBlock Text="Рік"
+                               Grid.Column="2"
+                               FontWeight="Bold"/>
+
+                    <TextBlock Text="Пробіг (км)"
+                               Grid.Column="3"
+                               FontWeight="Bold"/>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+
+        <!-- Список автомобілів -->
+        <ListBox x:Name="CarsList"
+                 Grid.Row="1"
+                 Margin="0,5,0,10">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="8">
+                        <Grid ColumnDefinitions="*,*,100,120">
+
+                            <TextBlock Text="{Binding Brand}"
+                                       Grid.Column="0"/>
+
+                            <TextBlock Text="{Binding OwnerSurname}"
+                                       Grid.Column="1"/>
+
+                            <TextBlock Text="{Binding PurchaseYear}"
+                                       Grid.Column="2"/>
+
+                            <TextBlock Text="{Binding Mileage}"
+                                       Grid.Column="3"/>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+
+        <!-- Панель керування автомобілями -->
+        <StackPanel Grid.Row="2" Spacing="8">
+
+            <WrapPanel HorizontalAlignment="Right">
+
+                <TextBlock Text="Фільтрувати до року:"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+
+                <TextBox x:Name="FilterYearTextBox"
+                         Width="75"
+                         PlaceholderText="Рік"
+                         Margin="5"/>
+
+                <Button Content="Фільтр"
+                        Click="FilterButton_Click"
+                        Margin="3"/>
+
+                <Button Content="Скинути"
+                        Click="ResetButton_Click"
+                        Margin="3"/>
+
+                <Button Content="Видалити"
+                        Click="DeleteButton_Click"
+                        Margin="3"/>
+
+                <Button Content="Сортувати за пробігом"
+                        Click="SortButton_Click"
+                        Margin="3"/>
+
+                <Button Content="Завантажити"
+                        Click="LoadButton_Click"
+                        Margin="3"/>
+
+                <Button Content="Зберегти"
+                        Click="SaveButton_Click"
+                        Margin="3"/>
+
+            </WrapPanel>
+
+            <!-- Повідомлення про результат операцій -->
+            <TextBlock x:Name="StatusText"
+                       Text="Готово до роботи."
+                       Foreground="Gray"
+                       FontSize="12"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>

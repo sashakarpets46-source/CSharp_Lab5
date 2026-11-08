@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="CarRegistry.Tests/CarRegistry.Tests.csproj" />
+  <Project Path="CarRegistry.UI/CarRegistry.UI.csproj" />
+  <Project Path="CarRegistry/CarRegistry.csproj" />
+</Solution>
